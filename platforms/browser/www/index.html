@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+	<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *"
+	/>
+	<!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+	<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="vendor/waves/waves.min.css" />
+	<link rel="stylesheet" href="vendor/wow/animate.css" />
+	<link rel="stylesheet" href="css/nativedroid2.css" />
+	<link rel="stylesheet" href="css/index.css" />
+
+	<style>
+		/* Prevent FOUC */
+		
+		body {
+			opacity: 0;
+		}
+	</style>
+
+	<title>TimeFocus</title>
+</head>
+
+<body class="clr-accent-lime">
+
+
+	<div data-role="page" id="page-home" class="nd2-no-menu-swipe">
+
+		<nd2-include data-src="fragments/panel.left.html"></nd2-include>
+
+		<div data-role="header" data-position="fixed" class="wow fadeIn">
+			<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
+			<h1 class="wow fadeIn" data-wow-delay='0.4s' style="float:left">&nbsp;
+				<!--TASK NAME HERE-->
+			</h1>
+			<div style="float:right" id="task-time-summary" class="task-time-summary" data-seconds-elapsed="0" data-seconds-total="0" data-eta="">
+				<DIV id="task-elapsed" DATASRC="#task-time-summary" DATAFLD="seconds-elapsed"></DIV>
+				<DIV id="task-total" DATASRC="#task-time-summary" DATAFLD="seconds-total"></DIV>
+				ETA: <DIV id="task-eta" DATASRC="#task-time-summary" DATAFLD="eta"></DIV>
+			</div>
+		</div>
+
+		<div id="main-canvas" role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+			<ul id="listholder" data-role="listview" data-icon="false" class="ui-listview">
+			</ul>
+
+
+
+
+		</div>
+		<div data-role="popup" id="popupAddChunk">
+
+			<!--<div data-role="header">
+                <h1 class='nd-title'>New chunk</h1>
+            </div>-->
+
+			<div data-role="content">
+				<label for="add-chunk-name">Name:</label>
+				<input type="text" name="add-chunk-name" id="add-chunk-name" value="" data-clear-btn="true" placeholder="">
+				<label for="add-chunk-mins">Minutes:</label>
+				<input type="range" name="add-chunk-mins" id="add-chunk-mins" value="1" min="1" step="5" max="60" data-highlight="true">
+
+				<a href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Cancel</a>
+				<a id="btn_add_chunk" href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Ok</a>
+
+			</div>
+		</div>
+
+		<div data-role="popup" id="popupEditChunk" data-history="false">
+			<div data-role="content">
+				<label for="edit-chunk-name">Name:</label>
+				<input type="hidden" id="edit-chunk-id">
+				<input type="text" name="edit-chunk-name" id="edit-chunk-name" value="" data-clear-btn="true" placeholder="">
+				<label for="edit-chunk-mins">Minutes:</label>
+				<input type="range" name="edit-chunk-mins" id="edit-chunk-mins" value="5" min="5" step="5" max="60" data-highlight="true">
+
+				<a href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Cancel</a>
+				<a id="btn_edit_chunk" href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Ok</a>
+
+			</div>
+		</div>
+		<!-- round + button -->
+		<a data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" class="ui-btn ui-btn-inline ui-btn-fab ui-btn-fab-bottom ui-btn-raised clr-warning waves-effect waves-button"
+			href="#popupAddChunk" onclick="javascript:resetAddChunkForm();">
+			<i class="zmdi zmdi-plus zmd-2x"></i>
+		</a>
+
+
+	</div>
+
+
+	<script src="js/knockout-3.4.1.js "></script>
+	<script src="js/jquery.min.js "></script>
+	<script src="js/jquery-ui.min.js "></script>
+	<!--<script src="js/jquery.mobile-events.min.js"></script>-->
+	<!--<script src="js/jquery.ui.touch-punch.min.js "></script>-->
+	<script src="js/jquery.mobile.min.js "></script>
+	<script src="js/jquery.doubletap.js "></script>
+	<script src="js/slip.js "></script>
+	<script src="vendor/waves/waves.min.js "></script>
+	<script src="vendor/wow/wow.min.js "></script>
+	<script src="vendor/d3/d3.v3.min.js "></script>
+	<script src="vendor/d3/donut-pie-chart.js "></script>
+	<script src="js/nativedroid2.js "></script>
+	<script src="nd2settings.js "></script>
+	<script src="js/index.js "></script>
+	<script src="cordova.js "></script>
+	<script type="text/javascript">
+        app.initialize();
+    </script>
+
+</body>
+
+</html>
