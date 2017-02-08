@@ -65,22 +65,22 @@
 }
 /*SVG*/
 .elapsed-secs {
-	font-size: 12px;
+	font-size: 6px;
 	text-shadow: none;
 }
 .elapsed-colon {
-	font-size: 18px;
+	font-size: 9px;
 	text-shadow: none;
 }.elapsed-mins {
-	font-size: 18px;
+	font-size: 9px;
 	text-shadow: none;
 }
 .total-mins {
-	font-size: 12px;
+	font-size: 6px;
 	text-shadow: none;
 }
 .total-mins-mins{
-	font-size: 10px;
+	font-size: 5px;
 	text-shadow: none;
 }
 /*SVG - END*/
@@ -108,4 +108,13 @@ text-shadow: none;
 	width: 100%;
 	margin: 48px auto;
 	height: 50px;
+}
+
+
+
+#svg circle {
+	-webkit-transition: stroke-dashoffset 1s linear;
+    -moz-transition: stroke-dashoffset 1s linear;
+    -o-transition: stroke-dashoffset 1s linear;
+    transition: stroke-dashoffset 1s linear;
 }

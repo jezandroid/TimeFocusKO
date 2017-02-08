@@ -1,6 +1,6 @@
 [
 {"title":"CHUNK 1","seconds":60,"elapsedSeconds":45,"isDone":true},
 {"title":"CHUNK 2","seconds":120,"elapsedSeconds":30,"isDone":false},
-{"title":"CHUNK 3","seconds":60,"elapsedSeconds":0,"isDone":false},
+{"title":"CHUNK 3","seconds":60,"elapsedSeconds":10,"isDone":false},
 {"title":"CHUNK 4","seconds":60,"elapsedSeconds":0,"isDone":false}
 ]

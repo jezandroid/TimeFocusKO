@@ -129,6 +129,16 @@ function updateTaskSummary() {
         taskElapsedSecs = parseInt($("#task-time-summary").attr("data-seconds-elapsed"));
          $("#task-time-summary").attr("data-seconds-elapsed", taskElapsedSecs + 1)
     }
+
+    if (ChunkListViewModelVar.activeChunkIndex()>-1){
+        ChunkListViewModelVar.chunks()[ChunkListViewModelVar.activeChunkIndex()].elapsedSeconds(
+            ChunkListViewModelVar.chunks()[ChunkListViewModelVar.activeChunkIndex()].elapsedSeconds()+1
+        );
+        
+        // alert('do something')
+    }
+    
+
 // $("#task-elapsed").text(taskElapsedSecs)
 
 //         var taskTotalSecs = 0;
