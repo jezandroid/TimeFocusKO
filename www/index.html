@@ -77,21 +77,24 @@
 				<DIV id="task-total" DATASRC="#task-time-summary" DATAFLD="seconds-total"></DIV>
 				ETA: <DIV id="task-eta" DATASRC="#task-time-summary" DATAFLD="eta"></DIV>
 				<span data-bind="text: activeChunkIndex()"></span>
+				<span data-bind="text: someText()"></span>
 			</div>
 		</div>
 
 		<div id="main-canvas" role="main" class="ui-content wow fadeIn" data-inset="false" data-wow-delay="0.2s">
+			 <!--<pre data-bind="text: ko.toJSON($data, null, 2)"></pre>-->
 			<ul id="listholder" data-role="listview" data-icon="false" class="ui-listview" data-bind="foreach: chunks, visible: chunks().length > 0">
 
 					<!--<input data-bind="value: title, disable: isDone" />-->
 	
    <!--===========-->				
     <!--<li data-chunk-id='" + chunkId + "'  data-total-secs='" + chunkMins * 60 + "' data-elapsed-secs='0' id='chunk-" + chunkId + "' class='ui-li-static ui-body-inherit chunk'>"-->
-    <li class='ui-li-static ui-body-inherit chunk' data-bind="css: { 'active-chunk': isActive}, click: $parent.setActiveChunk">
+    <li class='ui-li-static ui-body-inherit chunk' data-bind="css: { 'active-chunk': isActive, 'complete-chunk': isDone}, click: $parent.setActiveChunk, tap:tapHandler, hold:tapHandler, swipe:swipeHandler, doubletap:doubletapHandler">
     <div class='start-stop vcentre'>
 	<a class='play-button' href='#' onclick='javascript:setActiveChunkId(chunkId);'><i class='zmdi zmd-2x' data-bind="css: { 'zmdi-pause': isActive, 'zmdi-play': !isActive()}"></i></a>
     <!--<a style='display: none;' class='pause-button' href='#' onclick='javascript:setActiveChunkId(0);'><i class='zmdi zmdi-pause zmd-2x'></i></a>-->
 	</div>
+	
 	<div class="donut-time">
 		<svg id="svg" width="75" height="75" viewbox="0 0 38 38">
 			<circle cx="19" cy="19" r="15.9155" fill="tomato"/>
@@ -141,8 +144,8 @@
 				<label for="add-chunk-name">Name:</label>
 				<input data-bind="value: newChunkText" type="text" name="add-chunk-name" id="add-chunk-name" value="" data-clear-btn="true" placeholder="">
 				<label for="add-chunk-mins">Minutes:</label>
-				<input type="range" name="add-chunk-mins" id="add-chunk-mins" value="1" min="1" step="5" max="60" data-highlight="true">
-
+				<!--<input data-bind="value: newChunkMins" type="text">-->
+				<input data-bind="value: newChunkMins, slider: newChunkMins" type="range" name="add-chunk-mins" id="add-chunk-mins" value="1" min="1" step="1" max="60" data-highlight="true">
 				<a href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Cancel</a>
 				<a id="btn_add_chunk" href="dialog/index.html" data-rel="back" data-role="button" data-inline="true" class="ui-btn ui-mini ui-btn-inline ui-btn-primary">Ok</a>
 				<button type="submit">Add</button>
@@ -173,7 +176,8 @@
 
 	</div>
 
-
+	
+	<script src="js/hammer.min.js "></script>
 	<script src="js/knockout-3.4.1.js "></script>
 	<script src="js/jquery.min.js "></script>
 	<script src="js/jquery-ui.min.js "></script>
@@ -181,6 +185,7 @@
 	<!--<script src="js/jquery.ui.touch-punch.min.js "></script>-->
 	<script src="js/jquery.mobile.min.js "></script>
 	<script src="js/jquery.doubletap.js "></script>
+	<script src="js/knockouch.min.js "></script>
 	<script src="js/slip.js "></script>
 	<script src="vendor/waves/waves.min.js "></script>
 	<script src="vendor/wow/wow.min.js "></script>

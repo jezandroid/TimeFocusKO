@@ -122,26 +122,26 @@ function globalTick() {
 function updateTaskSummary() {
     //called on every tick
 
-    
+
     //if any chunk is active, increase elapsed time
     if (activeChunkId > 0) {
         var taskElapsedSecs;
         taskElapsedSecs = parseInt($("#task-time-summary").attr("data-seconds-elapsed"));
-         $("#task-time-summary").attr("data-seconds-elapsed", taskElapsedSecs + 1)
+        $("#task-time-summary").attr("data-seconds-elapsed", taskElapsedSecs + 1)
     }
 
-    if (ChunkListViewModelVar.activeChunkIndex()>-1){
+    if (ChunkListViewModelVar.activeChunkIndex() > -1) {
         ChunkListViewModelVar.chunks()[ChunkListViewModelVar.activeChunkIndex()].elapsedSeconds(
-            ChunkListViewModelVar.chunks()[ChunkListViewModelVar.activeChunkIndex()].elapsedSeconds()+1
+            ChunkListViewModelVar.chunks()[ChunkListViewModelVar.activeChunkIndex()].elapsedSeconds() + 1
         );
-        
+
         // alert('do something')
     }
-    
 
-// $("#task-elapsed").text(taskElapsedSecs)
 
-//         var taskTotalSecs = 0;
+    // $("#task-elapsed").text(taskElapsedSecs)
+
+    //         var taskTotalSecs = 0;
 
     //total time is sum of all non-deleted chunk totals
 

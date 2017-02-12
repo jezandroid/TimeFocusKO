@@ -158,8 +158,8 @@ code {
  */
 
 .ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper {
-	background-color: #323232; /*timefocus*/
-	/*background-color: #ffffff;	*/
+	/*background-color: #323232; /*timefocus*/
+	background-color: #ffffff;	
 	border-color: rgba(0,0,0,.87);
 	color: rgba(0, 0, 0, 0.87);
 }
