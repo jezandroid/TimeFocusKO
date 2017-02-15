@@ -10,7 +10,11 @@ function Chunk(data) {
     // }, this);
     this.elapsedMinutesAndSeconds = ko.pureComputed(function () {
         // return ((this.elapsedSeconds)/60);
-        return parseInt(this.elapsedSeconds() / 60) + ":" + parseInt(this.elapsedSeconds() % 60);
+        var elapsed_mins_val = parseInt(this.elapsedSeconds() / 60);        
+		if (elapsed_mins_val < 10){elapsed_mins_val = "0" + elapsed_mins_val}
+        var elapsed_secs_val = parseInt(this.elapsedSeconds() % 60);
+		if (elapsed_secs_val < 10){elapsed_secs_val = "0" + elapsed_secs_val}        
+        return elapsed_mins_val + ":" + elapsed_secs_val;
     }, this);
 
     this.isDone = ko.observable(data.isDone);
@@ -46,13 +50,12 @@ function ChunkListViewModel() {
         self.newChunkMins("");
     };
     self.removeChunk = function (item,event) {
-        // $("#chunk-" + chunkId).animate({ 'margin-left': '-1000px', 'margin-right': '1000px' }, 1000, function () { $("#chunk-" + chunkId).slideUp('fast'); });
 
         $(event.target).closest(".chunk")
             .animate({ 'margin-left': '-1000px', 'margin-right': '1000px' }, 1000)
-            .slideUp({queue: false})
+            .slideUp('fast')
             .fadeOut(null, function() {
-                self.chunks.destroy(item);
+                self.chunks.destroy(item);          
         });
         
     };
